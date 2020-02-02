@@ -1,6 +1,7 @@
 import 'package:cloud_izmir/models/user.dart';
 import 'package:cloud_izmir/pages/home_page.dart';
 import 'package:cloud_izmir/pages/login_page.dart';
+import 'package:cloud_izmir/pages/signup_page.dart';
 import 'package:cloud_izmir/services/user_service.dart';
 import 'package:flutter/material.dart';
 
@@ -52,7 +53,12 @@ class _WelcomePageState extends State<WelcomePage> {
             RaisedButton(
               child: Text("Sign Up"),
               color: Colors.blue,
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => SignUpPage()),
+                );
+              },
             ),
           ],
         ),

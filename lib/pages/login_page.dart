@@ -31,6 +31,7 @@ class _LoginPageState extends State<LoginPage> {
                       email = value;
                     },
                     decoration: InputDecoration(
+                      prefixIcon: Icon(Icons.mail),
                       labelText: "Email",
                     ),
                   ),
