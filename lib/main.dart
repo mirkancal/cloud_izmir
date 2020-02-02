@@ -47,6 +47,9 @@ class _MyHomePageState extends State<MyHomePage> {
         child: FutureBuilder<List<User>>(
           future: userFuture,
           builder: (context, snapshot) {
+            if (snapshot.hasError) {
+              return Text("Hata oluştu");
+            }
             if (!snapshot.hasData) {
               return CircularProgressIndicator();
             }
@@ -55,7 +58,16 @@ class _MyHomePageState extends State<MyHomePage> {
                 itemCount: snapshot.data.length,
                 itemBuilder: (context, index) {
                   final currentUser = snapshot.data[index];
-                  return Text(currentUser.name);
+                  return ListTile(
+                    title: Text(
+                      currentUser.name,
+                      style: TextStyle(
+                        fontSize: 24,
+                      ),
+                    ),
+                    subtitle: Text(currentUser.email),
+                  );
+                  // return Text(currentUser.name);
                 },
               );
             }

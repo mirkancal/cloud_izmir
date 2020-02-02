@@ -5,12 +5,16 @@ class UserService {
   final client = Dio();
 
   Future<List<User>> getUsers() async {
-    final response =
-        await client.get("https://jsonplaceholder.typicode.com/users");
+    try {
+      final response =
+          await client.get("https://jsonplaceholder.typicode.com/users");
 
-    final users = (response.data as List).map((item) {
-      return User.fromJson(item);
-    }).toList();
-    return users;
+      final users = (response.data as List).map((item) {
+        return User.fromJson(item);
+      }).toList();
+      return users;
+    } on Exception {
+      rethrow;
+    }
   }
 }
