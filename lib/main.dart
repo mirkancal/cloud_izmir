@@ -1,3 +1,4 @@
+import 'package:cloud_izmir/models/user.dart';
 import 'package:cloud_izmir/services/user_service.dart';
 import 'package:flutter/material.dart';
 
@@ -28,9 +29,10 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final userService = UserService();
-
+  Future<List<User>> userFuture;
   @override
   void initState() {
+    userFuture = userService.getUsers();
     super.initState();
   }
 
@@ -42,8 +44,22 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       drawer: Drawer(),
       body: Center(
-        child: ListView(
-          children: <Widget>[],
+        child: FutureBuilder<List<User>>(
+          future: userFuture,
+          builder: (context, snapshot) {
+            if (!snapshot.hasData) {
+              return CircularProgressIndicator();
+            }
+            if (snapshot.hasData) {
+              return ListView.builder(
+                itemCount: snapshot.data.length,
+                itemBuilder: (context, index) {
+                  final currentUser = snapshot.data[index];
+                  return Text(currentUser.name);
+                },
+              );
+            }
+          },
         ),
       ),
     );
